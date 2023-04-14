@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
+import { ButtonModule } from 'primeng/button';
 
 @Component({
   selector: 'app-inicio',
@@ -10,6 +12,11 @@ nombre='Eduardo';
 apellido= 'Reyna';
 loadingVisible=false;
 
+constructor (private ruta: Router){
+
+
+}
+
 visualizarLoading(){
 this.loadingVisible=true;
 setTimeout(() =>{
@@ -17,6 +24,9 @@ setTimeout(() =>{
 
 },2000)
 
+}
+irPaginaTabla(){
+  this.ruta.navigate(['tabla']);
 }
 
 }

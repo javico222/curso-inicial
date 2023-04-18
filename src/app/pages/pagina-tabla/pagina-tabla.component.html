@@ -1,25 +1,45 @@
-<p>regresar a Inicio</p>
+
+<p-tabMenu [model]="listMenu"></p-tabMenu>
+
+
+
 <p-button label="regresar a inicio" (onClick)="regresarInicio()"></p-button>
 
 
-<p-table [value]="listEmpleado" [tableStyle]="{ 'min-width': '50rem' }">
-    <ng-template pTemplate="header">
-        <tr>
-            <th>ID</th>
-            <th>NOMBRE EMPLEADO</th>
-            <th>SALARIO EMPLEADO</th>
-            <th>EDAD</th>
-        </tr>
-    </ng-template>
-    <ng-template pTemplate="body" let-empleado>
-        <tr>
-            <td>{{ empleado.id }}</td>
-            <td>{{ empleado.employee_name }}</td>
-            <td>{{ empleado.employee_salary }}</td>
-            <td>{{ empleado.employee_age }}</td>
-        </tr>
-    </ng-template>
-</p-table>
+<div class="card">
+    <div class="flex justify-content-center flex-wrap card-container yellow-container">
+        <p-panel header="Lista de emppleados">
+    
+            <p-table [columns]="columnTabla" [value]="listEmpleado" [tableStyle]="{ 'min-width': '50rem' }"
+            [paginator]="true" [rows]="10"  [showCurrentPageReport]="true" currentPageReportTemplate="Mostrando {first} to {last} of {totalRecords} entries" 
+            [rowsPerPageOptions]="[10, 25, 50]" >
+            <ng-template pTemplate="header" let-cols>
+            <tr>
+                <th *ngFor="let col of cols">
+                    {{col.header}}
+                </th>
+                
+            </tr>
+            </ng-template>
+                <ng-template pTemplate="body" let-empleado>
+                <tr>
+                    <td>{{ empleado.id }}</td>
+                    <td>{{ empleado.employee_name }}</td>
+                    <td>{{ empleado.employee_salary }}</td>
+                    <td>{{ empleado.employee_age }}</td>
+                </tr>
+            </ng-template>
+            </p-table>
+        
+        </p-panel>
+    </div>
+</div>
+
+
+
+
+
+
 
 
 

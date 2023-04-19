@@ -11,13 +11,19 @@ import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { TableModule } from 'primeng/table';
 import { PanelModule } from 'primeng/panel';
 import { TabMenuModule } from 'primeng/tabmenu';
+import { MenubarModule } from 'primeng/menubar';
+import { MenuHeaderComponent } from './components/menu-header/menu-header.component';
+import { ToastModule } from 'primeng/toast';
+import { MessagesModule } from 'primeng/messages';
+import { MessageService } from 'primeng/api';
 
 @NgModule({
   declarations: [
     AppComponent,
     InicioComponent,
     LoadingComponent,
-    PaginaTablaComponent
+    PaginaTablaComponent,
+    MenuHeaderComponent
   ],
   imports: [
     BrowserModule,
@@ -27,9 +33,13 @@ import { TabMenuModule } from 'primeng/tabmenu';
     HttpClientModule,
     TableModule,
     PanelModule,
-    TabMenuModule
+    TabMenuModule,
+    MenubarModule,
+    ToastModule,
+    
+   
   ],
-  providers: [],
+  providers: [MessageService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -1,27 +1,29 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-import { MenuItem } from 'primeng/api';
+import { Router, RouterLink } from '@angular/router';
+
 import { IDataEmpleado } from 'src/app/interfaces/empleadosInterface';
 import { EmpleadoService } from 'src/app/services/empleado.service';
+import { MessageService } from 'primeng/api';
 
 @Component({
   selector: 'app-pagina-tabla',
   templateUrl: './pagina-tabla.component.html',
-  styleUrls: ['./pagina-tabla.component.css']
+  styleUrls: ['./pagina-tabla.component.css'],
+  //providers: [MessageService]
 })
 export class PaginaTablaComponent implements OnInit{
   listEmpleado: IDataEmpleado[] =[];
   columnTabla: any;
-  listMenu: MenuItem[]=[];
-  activeItem!: MenuItem;
+ 
 
   constructor(private rutas: Router,
-              private empleadoService: EmpleadoService){
+              private empleadoService: EmpleadoService,
+              private mensajes: MessageService){
 
   }
   ngOnInit(): void {
     this.inicioColumnaTabla();
-    this.inicioMenu();
+
     console.log('hola estoy aqui desde ngoninit');
     // this.empleadoService.getAllEmployee().subscribe(
     //   (datos) =>{
@@ -36,9 +38,11 @@ export class PaginaTablaComponent implements OnInit{
         next:(datos)=> {
           console.log(datos);
           this.listEmpleado=datos.data;
+          this.mensajes.add({ severity: 'success', summary: 'Success', detail: 'Message Content'});
         },
         error:(err)=> {
           console.log(err);
+          this.mensajes.add({ severity: 'error', summary: 'Error', detail: 'Message Content'});
         }
       }
     )
@@ -60,17 +64,7 @@ export class PaginaTablaComponent implements OnInit{
     ]
 
   }
-  inicioMenu(){
-    this.listMenu = [
-      {
-        label: 'Cliente'
-      },
-      {
-        label: 'Empresa'
-      }
-    ];
-    this.activeItem=this.listMenu[0];
-  }
+  
 
   regresarInicio(){
     this.rutas.navigate(['inicio']);

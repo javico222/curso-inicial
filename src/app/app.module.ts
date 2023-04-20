@@ -16,6 +16,9 @@ import { MenuHeaderComponent } from './components/menu-header/menu-header.compon
 import { ToastModule } from 'primeng/toast';
 import { MessagesModule } from 'primeng/messages';
 import { MessageService } from 'primeng/api';
+import { ReactiveFormsModule } from '@angular/forms';
+import { InputTextModule } from 'primeng/inputtext';
+
 
 @NgModule({
   declarations: [
@@ -36,6 +39,8 @@ import { MessageService } from 'primeng/api';
     TabMenuModule,
     MenubarModule,
     ToastModule,
+    ReactiveFormsModule,
+    InputTextModule
     
    
   ],

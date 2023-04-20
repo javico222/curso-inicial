@@ -14,7 +14,7 @@ import { MessageService } from 'primeng/api';
 export class PaginaTablaComponent implements OnInit{
   listEmpleado: IDataEmpleado[] =[];
   columnTabla: any;
- 
+  loading=false;
 
   constructor(private rutas: Router,
               private empleadoService: EmpleadoService,
@@ -25,6 +25,7 @@ export class PaginaTablaComponent implements OnInit{
     this.inicioColumnaTabla();
 
     console.log('hola estoy aqui desde ngoninit');
+    this.loading=true;
     // this.empleadoService.getAllEmployee().subscribe(
     //   (datos) =>{
     //     console.log(datos);
@@ -38,10 +39,12 @@ export class PaginaTablaComponent implements OnInit{
         next:(datos)=> {
           console.log(datos);
           this.listEmpleado=datos.data;
+          this.loading=false;
           this.mensajes.add({ severity: 'success', summary: 'Success', detail: 'Message Content'});
         },
         error:(err)=> {
           console.log(err);
+          this.loading=false;
           this.mensajes.add({ severity: 'error', summary: 'Error', detail: 'Message Content'});
         }
       }

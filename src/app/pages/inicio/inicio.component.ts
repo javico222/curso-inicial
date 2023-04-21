@@ -3,6 +3,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { MessageService } from 'primeng/api';
 import { ButtonModule } from 'primeng/button';
+import { EmpleadoService } from 'src/app/services/empleado.service';
 
 @Component({
   selector: 'app-inicio',
@@ -13,9 +14,10 @@ export class InicioComponent implements OnInit {
 nombre='Eduardo';
 apellido= 'Reyna';
 loadingVisible=false;
-formUsuario!: FormGroup;
+//formUsuario!: FormGroup;
+formEmpleado!: FormGroup;
 
-constructor (private ruta: Router,private mensajes: MessageService){
+constructor (private ruta: Router,private mensajes: MessageService,private serviceEmpleado: EmpleadoService){
   
 
 }
@@ -36,18 +38,20 @@ irPaginaTabla(){
 }
 
 buildFormulario(){
-  this.formUsuario=new FormGroup(
+  this.formEmpleado=new FormGroup(
     {
-      nombre: new FormControl('', [Validators.required]),
-      apellido: new FormControl ('',[Validators.required])
+      name: new FormControl('', [Validators.required]),
+      salary: new FormControl ('',[Validators.required]),
+      age: new FormControl ('',[Validators.required])
     }
   );
 }
 verificar(){
-  console.log(this.formUsuario);
-  if(this.formUsuario.valid)
+  console.log(this.formEmpleado);
+  if(this.formEmpleado.valid)
   {
-    this.mensajes.add({ severity: 'success', summary: 'Formulario Correcto', detail: 'Exito' });
+    this.crearEmpleado();
+    //this.mensajes.add({ severity: 'success', summary: 'Formulario Correcto', detail: 'Exito' });
   }
   else
   {
@@ -55,6 +59,23 @@ verificar(){
   }
   
 
+}
+crearEmpleado(){
+  this.serviceEmpleado.createEmployee(this.formEmpleado.value.name,
+                                      this.formEmpleado.value.salary,
+                                      this.formEmpleado.value.age).subscribe({
+                                        next:(resp)=>{
+                                          this.formEmpleado.reset();
+                                          this.mensajes.add({severity: 'success',summary: 'Empleado creado con éxito', detail: 'éxito'});
+                                        },
+                                        error: (resp) =>{
+                                          this.mensajes.add({severity: 'error',summary: 'Error',detail: 'Hubo un error'});
+                                        }
+
+
+                                      })
+  
+  
 }
 
 }

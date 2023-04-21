@@ -9,19 +9,47 @@
         
     </div> -->
     <p-panel header="Formulario Reactivo">     
-        <form [formGroup]="formUsuario" class="formgrid grid">
+        <form [formGroup]="formEmpleado" class="formgrid grid">
 
                 <div class="field col-12 md:col-6">
-                    <label for="name">Nombre</label>
-                    <input id="name" type="text" pInputText formControlName="nombre" class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full">
+                    <label for="name">name</label>
+                    <input id="name" type="text" pInputText formControlName="name" 
+                            class="text-base text-color surface-overlay 
+                            p-2 border-1 border-solid  
+                            border-round appearance-none outline-none focus:border-primary w-full">
+                    <div *ngIf="(formEmpleado.get('name')!.dirty||formEmpleado.get('name')!.touched)">
+                        <small  *ngIf="formEmpleado.get('name')!.hasError('required')"  id="name-help" class="p-error">
+                            Nombre requerido.
+                        </small>
+                    </div>
+                            
                 </div>
                 <div class="field col-12 md:col-6">
-                    <label for="name">Nombre</label>
-                    <input id="name" type="text" pInputText formControlName="apellido" class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full">
+                    <label for="salary">salary</label>
+                    <input id="salary" type="text" pInputText formControlName="salary" 
+                            class="text-base text-color surface-overlay 
+                            p-2 border-1 border-solid  border-round appearance-none outline-none focus:border-primary w-full">
+                        <div *ngIf="(formEmpleado.get('salary')!.dirty||formEmpleado.get('salary')!.touched)">
+                                <small  *ngIf="formEmpleado.get('salary')!.hasError('required')"  id="name-help" class="p-error">
+                                    salario requerido.
+                                </small>
+                        </div>
                 </div>
-                <p-button label="Verificar" (onClick)="verificar()"></p-button>
+                <div class="field col-12 md:col-2">
+                    <label for="age">age</label>
+                    <input id="age" type="text" pInputText formControlName="age" 
+                            class="text-base text-color surface-overlay 
+                            p-2 border-1 border-solid  border-round appearance-none outline-none focus:border-primary w-full">
+                        <div *ngIf="(formEmpleado.get('age')!.dirty||formEmpleado.get('age')!.touched)">
+                                <small  *ngIf="formEmpleado.get('age')!.hasError('required')"  id="name-help" class="p-error">
+                                    edad requerido.
+                                </small>
+                        </div>
+                </div>
+                <p-button label="Guardar" (onClick)="verificar()"></p-button>
         </form>
-       
+        {{formEmpleado.value|json}}
+        {{formEmpleado.get('name')!.hasError('required')}}
     </p-panel>
 
 </div>
